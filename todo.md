@@ -15,5 +15,5 @@
 ## Exportação para GitHub
 
 - [x] Verificar a integração GitHub disponível no projeto e identificar o proprietário de destino.
-- [ ] Confirmar o nome e a visibilidade do repositório antes da criação externa.
-- [ ] Exportar a versão aprovada do site e confirmar a URL do repositório.
+- [x] Confirmar o nome e a visibilidade do repositório antes da criação externa.
+- [x] Exportar a versão aprovada do site e confirmar a URL do repositório.
