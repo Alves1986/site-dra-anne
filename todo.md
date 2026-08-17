@@ -11,3 +11,9 @@
 - [x] Fazer todos os CTAs de agendamento apontarem para o formulário interno.
 - [x] Padronizar o texto de todos esses CTAs como “Agendar consulta”.
 - [x] Verificar visualmente o fluxo e salvar a atualização.
+
+## Exportação para GitHub
+
+- [x] Verificar a integração GitHub disponível no projeto e identificar o proprietário de destino.
+- [ ] Confirmar o nome e a visibilidade do repositório antes da criação externa.
+- [ ] Exportar a versão aprovada do site e confirmar a URL do repositório.
