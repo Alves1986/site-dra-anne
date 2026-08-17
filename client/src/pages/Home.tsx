@@ -180,7 +180,7 @@ export default function Home() {
               </p>
               <div className="hero-actions">
                 <a className="button button-primary" href="#agendar">
-                  <CalendarDays size={18} /> Solicitar agendamento
+                  <CalendarDays size={18} /> Agendar consulta
                 </a>
                 <a className="text-link" href="#especialidades">
                   Conheça as especialidades <ArrowRight size={17} />
@@ -269,7 +269,7 @@ export default function Home() {
                 <Icon className="service-icon" size={25} strokeWidth={1.5} />
                 <h3>{title}</h3>
                 <p>{description}</p>
-                <a href="#agendar" aria-label={`Solicitar informações sobre ${title}`}>
+                <a href="#agendar" aria-label={`Agendar consulta para ${title}`}>
                   <ArrowUpRight size={19} />
                 </a>
               </article>
@@ -297,7 +297,7 @@ export default function Home() {
               ))}
             </div>
             <a className="button button-outline" href="#agendar">
-              <MessageCircle size={18} /> Tirar uma dúvida sobre agendamento
+              <MessageCircle size={18} /> Agendar consulta
             </a>
           </div>
         </section>
@@ -398,7 +398,7 @@ export default function Home() {
               </label>
               <div className="form-submit form-field-wide">
                 <button className="button button-plum" type="submit">
-                  <MessageCircle size={18} /> Enviar solicitação pelo WhatsApp
+                  <MessageCircle size={18} /> Agendar consulta
                 </button>
                 <p>O WhatsApp será aberto com sua mensagem pronta para enviar.</p>
               </div>
@@ -423,7 +423,7 @@ export default function Home() {
       </footer>
 
       <a className="floating-contact" href="#agendar" aria-label="Abrir formulário de agendamento">
-        <CalendarDays size={20} /><span>Agendar</span>
+        <CalendarDays size={20} /><span>Agendar consulta</span>
       </a>
     </div>
   );
