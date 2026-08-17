@@ -167,12 +167,30 @@ h1 em, h2 em { font-weight: 500; color: var(--camellia); }
 .panel-note { margin: 0; color: #7d676e; text-align: center; font-size: .69rem; }
 
 .booking-section { position: relative; padding: clamp(6rem, 10vw, 9rem) 1.5rem; background: #f9f4ee; overflow: hidden; }
-.booking-content { position: relative; width: min(100%, 700px); margin: 0 auto; text-align: center; z-index: 1; }
-.booking-content h2 { margin-left: auto; margin-right: auto; max-width: 600px; }
-.booking-content > p:not(.kicker) { max-width: 495px; margin-left: auto; margin-right: auto; }
-.booking-symbol { margin: 0 auto 1.3rem; width: 56px; height: 56px; display: grid; place-items: center; border: 1px solid #e4cbd0; border-radius: 50%; }
+.booking-layout { position: relative; z-index: 1; width: min(100%, 1040px); margin: 0 auto; display: grid; grid-template-columns: minmax(0,.76fr) minmax(440px,1fr); gap: clamp(3rem, 9vw, 8rem); align-items: center; }
+.booking-content { text-align: left; }
+.booking-content h2 { max-width: 490px; }
+.booking-content > p:not(.kicker) { max-width: 450px; }
+.booking-symbol { margin: 0 0 1.3rem; width: 56px; height: 56px; display: grid; place-items: center; border: 1px solid #e4cbd0; border-radius: 50%; }
 .booking-symbol img { width: 40px; height: 40px; object-fit: contain; }
-.booking-actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1.25rem; margin-top: 2rem; }
+.booking-assurance { display: flex; align-items: flex-start; gap: .6rem; max-width: 380px; margin-top: 1.75rem; padding-top: 1rem; border-top: 1px solid rgba(201,137,149,.34); color: #795f66; font-size: .75rem; line-height: 1.55; }
+.booking-assurance svg { flex: 0 0 auto; color: var(--camellia); }
+.appointment-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: clamp(1.35rem, 3vw, 2.25rem); background: rgba(255,253,249,.8); border: 1px solid rgba(201,137,149,.3); box-shadow: 0 24px 54px rgba(92,53,64,.08); backdrop-filter: blur(5px); }
+.form-field { display: grid; gap: .48rem; }
+.form-field-wide { grid-column: 1 / -1; }
+.form-field label { color: var(--plum); font-size: .69rem; font-weight: 700; letter-spacing: .03em; }
+.form-field label span { color: var(--camellia); }
+.form-field input, .form-field select, .form-field textarea { width: 100%; border: 1px solid #e7d3d1; border-radius: 0; outline: 0; background: rgba(255,255,255,.72); color: var(--plum); font: inherit; font-size: .83rem; transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease; }
+.form-field input, .form-field select { height: 46px; padding: 0 .78rem; }
+.form-field textarea { min-height: 94px; padding: .75rem .78rem; resize: vertical; line-height: 1.55; }
+.form-field select { appearance: auto; }
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--camellia); background: #fffdfb; box-shadow: 0 0 0 3px rgba(201,137,149,.12); }
+.form-field textarea::placeholder { color: #ad979b; }
+.privacy-check { display: flex; align-items: flex-start; gap: .65rem; color: #745f66; font-size: .71rem; line-height: 1.55; }
+.privacy-check input { width: 15px; height: 15px; margin: .15rem 0 0; accent-color: var(--plum); }
+.form-submit { display: flex; align-items: center; gap: 1rem; padding-top: .3rem; }
+.form-submit .button { border: 0; cursor: pointer; }
+.form-submit p { margin: 0; color: #856e74; font-size: .67rem; line-height: 1.45; }
 .button-plum { background: var(--plum); color: #fff; }
 .button-plum:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(92,53,64,.2); }
 .booking-instagram { display: inline-flex; gap: .5rem; align-items: center; color: var(--plum); font-size: .79rem; font-weight: 700; border-bottom: 1px solid #d3aeb5; padding-bottom: .2rem; }
@@ -213,6 +231,7 @@ h1 em, h2 em { font-weight: 500; color: var(--camellia); }
   .services-heading { gap: 2rem; }
   .care-section { gap: 3rem; }
   .instagram-section { grid-template-columns: minmax(0,.73fr) minmax(370px,1fr); gap: 3rem; }
+  .booking-layout { grid-template-columns: minmax(0,.7fr) minmax(390px,1fr); gap: 3rem; }
 }
 
 @media (max-width: 720px) {
@@ -221,7 +240,7 @@ h1 em, h2 em { font-weight: 500; color: var(--camellia); }
   .brand-copy small { font-size: .51rem; }
   .header-cta { display: none; }
   .hero-section { padding: 4.3rem 1.35rem 5rem; }
-  .hero-grid, .about-grid, .care-section, .instagram-section, .services-heading { grid-template-columns: 1fr; }
+  .hero-grid, .about-grid, .care-section, .instagram-section, .services-heading, .booking-layout { grid-template-columns: 1fr; }
   .hero-grid { gap: 3.5rem; }
   h1 { font-size: clamp(3.4rem, 15vw, 5rem); }
   .hero-visual { width: min(88%, 410px); margin: 0 0 0 auto; }
@@ -242,6 +261,10 @@ h1 em, h2 em { font-weight: 500; color: var(--camellia); }
   .instagram-panel { padding: 1.15rem; }
   .instagram-posts { gap: .42rem; }
   .instagram-post { min-height: 160px; }
+  .booking-content { text-align: center; }
+  .booking-symbol { margin-left: auto; margin-right: auto; }
+  .booking-content h2, .booking-content > p:not(.kicker), .booking-assurance { margin-left: auto; margin-right: auto; }
+  .appointment-form { max-width: 560px; width: 100%; margin: 0 auto; }
   .footer-top, .footer-bottom { align-items: flex-start; flex-direction: column; gap: 1.4rem; }
   .footer-top { padding-bottom: 2rem; }
   .footer-bottom { gap: .65rem; }
@@ -254,7 +277,9 @@ h1 em, h2 em { font-weight: 500; color: var(--camellia); }
   .service-grid { grid-template-columns: 1fr; }
   .service-card { min-height: 228px; }
   .service-icon { margin: 1.4rem 0 .65rem; }
-  .booking-actions { flex-direction: column; }
+  .appointment-form { grid-template-columns: 1fr; }
+  .form-field-wide { grid-column: auto; }
+  .form-submit { align-items: stretch; flex-direction: column; }
   .button { width: 100%; }
   .floating-contact span { display: none; }
   .floating-contact { right: .9rem; bottom: .9rem; padding: .82rem; }

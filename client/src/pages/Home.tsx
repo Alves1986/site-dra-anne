@@ -2,7 +2,7 @@
  * Direção visual: Jardim de Linho — editorial orgânico em marfim, rosa camélia
  * e vinho ameixa; layout assimétrico, amplo e acolhedor para cuidado feminino.
  */
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 
 const INSTAGRAM_URL = "https://www.instagram.com/draanneginecologista";
-const LINKTREE_URL = "https://linktr.ee/draannelisegaldino";
+const WHATSAPP_DESTINATION = "5542991218059";
 
 const services = [
   {
@@ -90,8 +90,40 @@ const careSteps = [
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [appointment, setAppointment] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    reason: "Consulta ginecológica",
+    preference: "",
+    note: "",
+  });
 
   const closeMenu = () => setMenuOpen(false);
+  const updateAppointment = (field: keyof typeof appointment, value: string) => {
+    setAppointment((current) => ({ ...current, [field]: value }));
+  };
+  const sendAppointmentToWhatsApp = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const message = [
+      "Olá! Gostaria de solicitar um agendamento com a Dra. Anne.",
+      "",
+      `Nome: ${appointment.name}`,
+      `Telefone: ${appointment.phone}`,
+      appointment.email ? `E-mail: ${appointment.email}` : "",
+      `Motivo do contato: ${appointment.reason}`,
+      appointment.preference ? `Melhor período: ${appointment.preference}` : "",
+      appointment.note ? `Informações adicionais: ${appointment.note}` : "",
+      "",
+      "Mensagem enviada pelo formulário do site.",
+    ].filter(Boolean).join("\n");
+
+    window.open(
+      `https://api.whatsapp.com/send?phone=${WHATSAPP_DESTINATION}&text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+  };
 
   return (
     <div className="site-shell">
@@ -116,7 +148,7 @@ export default function Home() {
             <a href="#instagram" onClick={closeMenu}>Instagram</a>
           </nav>
 
-          <a className="header-cta" href={LINKTREE_URL} target="_blank" rel="noreferrer">
+          <a className="header-cta" href="#agendar" onClick={closeMenu}>
             Agendar consulta <ArrowUpRight size={16} />
           </a>
 
@@ -147,8 +179,8 @@ export default function Home() {
                 acolhe a saúde feminina com olhar integral, humano e responsável.
               </p>
               <div className="hero-actions">
-                <a className="button button-primary" href={LINKTREE_URL} target="_blank" rel="noreferrer">
-                  <CalendarDays size={18} /> Agendar pelo Instagram
+                <a className="button button-primary" href="#agendar">
+                  <CalendarDays size={18} /> Solicitar agendamento
                 </a>
                 <a className="text-link" href="#especialidades">
                   Conheça as especialidades <ArrowRight size={17} />
@@ -237,7 +269,7 @@ export default function Home() {
                 <Icon className="service-icon" size={25} strokeWidth={1.5} />
                 <h3>{title}</h3>
                 <p>{description}</p>
-                <a href={LINKTREE_URL} target="_blank" rel="noreferrer" aria-label={`Solicitar informações sobre ${title}`}>
+                <a href="#agendar" aria-label={`Solicitar informações sobre ${title}`}>
                   <ArrowUpRight size={19} />
                 </a>
               </article>
@@ -264,7 +296,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <a className="button button-outline" href={LINKTREE_URL} target="_blank" rel="noreferrer">
+            <a className="button button-outline" href="#agendar">
               <MessageCircle size={18} /> Tirar uma dúvida sobre agendamento
             </a>
           </div>
@@ -308,23 +340,69 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="booking-section">
+        <section id="agendar" className="booking-section">
           <div className="booking-pattern" aria-hidden="true" />
-          <div className="booking-content reveal">
-            <div className="booking-symbol"><img src="/manus-storage/dra-anne-monograma_f950f555.png" alt="" /></div>
-            <p className="kicker">Vamos conversar?</p>
-            <h2>Um espaço seguro para cuidar de <em>você.</em></h2>
-            <p>
-              Para informações, disponibilidade e agendamento, acesse os canais oficiais da Dra. Anne.
-            </p>
-            <div className="booking-actions">
-              <a className="button button-plum" href={LINKTREE_URL} target="_blank" rel="noreferrer">
-                <CalendarDays size={18} /> Consultar agendamento
-              </a>
-              <a className="booking-instagram" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-                <Instagram size={18} /> Instagram oficial
-              </a>
+          <div className="booking-layout reveal">
+            <div className="booking-content">
+              <div className="booking-symbol"><img src="/manus-storage/dra-anne-monograma_f950f555.png" alt="" /></div>
+              <p className="kicker">Agendamento</p>
+              <h2>Vamos encontrar um momento para cuidar de <em>você.</em></h2>
+              <p>
+                Preencha as informações essenciais e envie sua solicitação diretamente pelo WhatsApp oficial da Dra. Anne.
+              </p>
+              <div className="booking-assurance">
+                <ShieldCheck size={18} />
+                <span>Seus dados não ficam armazenados neste site.</span>
+              </div>
             </div>
+            <form className="appointment-form" onSubmit={sendAppointmentToWhatsApp}>
+              <div className="form-field form-field-wide">
+                <label htmlFor="appointment-name">Nome completo <span>*</span></label>
+                <input id="appointment-name" name="name" value={appointment.name} onChange={(event) => updateAppointment("name", event.target.value)} autoComplete="name" required />
+              </div>
+              <div className="form-field">
+                <label htmlFor="appointment-phone">Telefone para retorno <span>*</span></label>
+                <input id="appointment-phone" name="phone" type="tel" value={appointment.phone} onChange={(event) => updateAppointment("phone", event.target.value)} autoComplete="tel" inputMode="tel" required />
+              </div>
+              <div className="form-field">
+                <label htmlFor="appointment-email">E-mail</label>
+                <input id="appointment-email" name="email" type="email" value={appointment.email} onChange={(event) => updateAppointment("email", event.target.value)} autoComplete="email" />
+              </div>
+              <div className="form-field">
+                <label htmlFor="appointment-reason">Como podemos ajudar? <span>*</span></label>
+                <select id="appointment-reason" name="reason" value={appointment.reason} onChange={(event) => updateAppointment("reason", event.target.value)}>
+                  <option>Consulta ginecológica</option>
+                  <option>Pré-natal</option>
+                  <option>Saúde preventiva</option>
+                  <option>Saúde sexual</option>
+                  <option>Menopausa</option>
+                  <option>Outro assunto</option>
+                </select>
+              </div>
+              <div className="form-field">
+                <label htmlFor="appointment-preference">Melhor período</label>
+                <select id="appointment-preference" name="preference" value={appointment.preference} onChange={(event) => updateAppointment("preference", event.target.value)}>
+                  <option value="">Selecione uma opção</option>
+                  <option>Manhã</option>
+                  <option>Tarde</option>
+                  <option>Primeiro horário disponível</option>
+                </select>
+              </div>
+              <div className="form-field form-field-wide">
+                <label htmlFor="appointment-note">Há algo que gostaria de informar?</label>
+                <textarea id="appointment-note" name="note" value={appointment.note} onChange={(event) => updateAppointment("note", event.target.value)} placeholder="Escreva apenas o que for confortável compartilhar." rows={3} />
+              </div>
+              <label className="privacy-check form-field-wide">
+                <input type="checkbox" required />
+                <span>Estou ciente de que as informações serão enviadas ao WhatsApp para retorno sobre o agendamento.</span>
+              </label>
+              <div className="form-submit form-field-wide">
+                <button className="button button-plum" type="submit">
+                  <MessageCircle size={18} /> Enviar solicitação pelo WhatsApp
+                </button>
+                <p>O WhatsApp será aberto com sua mensagem pronta para enviar.</p>
+              </div>
+            </form>
           </div>
         </section>
       </main>
@@ -344,7 +422,7 @@ export default function Home() {
         </div>
       </footer>
 
-      <a className="floating-contact" href={LINKTREE_URL} target="_blank" rel="noreferrer" aria-label="Abrir opções de agendamento">
+      <a className="floating-contact" href="#agendar" aria-label="Abrir formulário de agendamento">
         <CalendarDays size={20} /><span>Agendar</span>
       </a>
     </div>
